@@ -51,4 +51,10 @@ public class ProductService {
     
         return productMapper.toUpdateResponse(updatedProduct);
     }
+
+    public void deleteById(UUID id) {
+        validator.validateProductExistence(id);
+    
+        repository.deleteById(id);
+    }
 }
