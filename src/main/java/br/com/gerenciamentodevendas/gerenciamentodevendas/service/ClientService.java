@@ -20,16 +20,16 @@ public class ClientService {
     
     private final ClientRepository repository;
     private final ClientMapper clientMapper;
-    private final ClientValidator clientValidator;
+    private final ClientValidator validator;
     
-    public ClientService(ClientRepository repository, ClientMapper clientMapper, ClientValidator clientValidator) {
+    public ClientService(ClientRepository repository, ClientMapper clientMapper, ClientValidator validator) {
         this.repository = repository;
         this.clientMapper = clientMapper;
-        this.clientValidator = clientValidator;
+        this.validator = validator;
     }
 
     public CreateClientResponseDTO create(CreateClientRequestDTO request) {
-        clientValidator.validateEmailInUse(request.email());
+        validator.validateEmailInUse(request.email());
         
         Client client = clientMapper.toEntity(request);
         Client newClient = repository.save(client);
@@ -37,19 +37,19 @@ public class ClientService {
         return clientMapper.toCreateResponse(newClient);
     }
     
-    public List<Client> getAll() {
-        return repository.findAll();
+    public List<GetClientResponseDTO> getAll() {
+        return clientMapper.toResponseList(repository.findAll());
     }
 
     public GetClientResponseDTO getById(UUID id) {
-        clientValidator.validateClientExistence(id);
+        validator.validateClientExistence(id);
 
         return clientMapper.toGetClientResponseDTO(repository.findById(id).get());
     }
     
     public UpdateClientResponseDTO updateById(UUID id, UpdateClientRequestDTO request) {
-        clientValidator.validateClientExistence(id);
-        clientValidator.validateEmailOwnership(id, request.email());
+        validator.validateClientExistence(id);
+        validator.validateEmailOwnership(id, request.email());
 
         Client updatedClient = clientMapper.toEntity(request);
         updatedClient.setId(id);
@@ -58,7 +58,7 @@ public class ClientService {
     }
 
     public void deleteById(UUID id) {
-        clientValidator.validateClientExistence(id);
+        validator.validateClientExistence(id);
         
         repository.deleteById(id);
     }

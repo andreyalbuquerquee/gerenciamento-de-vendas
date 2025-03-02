@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.client.Client;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.clients.request.CreateClientRequestDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.clients.request.UpdateClientRequestDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.clients.response.CreateClientResponseDTO;
@@ -39,7 +38,7 @@ public class ClientController {
     }
     
     @GetMapping
-    public ResponseEntity<List<Client>> create() {
+    public ResponseEntity<List<GetClientResponseDTO>> create() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
     }
 

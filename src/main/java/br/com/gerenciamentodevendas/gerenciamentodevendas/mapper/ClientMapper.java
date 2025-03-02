@@ -1,5 +1,7 @@
 package br.com.gerenciamentodevendas.gerenciamentodevendas.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,6 +21,7 @@ public interface ClientMapper {
     Client toEntity(UpdateClientRequestDTO updateClientDTO);
 
     CreateClientResponseDTO toCreateResponse(Client client);
+    List<GetClientResponseDTO> toResponseList(List<Client> clients);
     UpdateClientResponseDTO toUpdateResponse(Client client);
     GetClientResponseDTO toGetClientResponseDTO(Client client);
 }

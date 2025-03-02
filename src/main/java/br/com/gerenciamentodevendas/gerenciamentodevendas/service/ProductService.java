@@ -1,6 +1,7 @@
 package br.com.gerenciamentodevendas.gerenciamentodevendas.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,18 @@ import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.products.response.
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.products.response.GetProductResponseDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.mapper.ProductMapper;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.repository.ProductRepository;
+import br.com.gerenciamentodevendas.gerenciamentodevendas.service.validation.ProductValidator;
 
 @Service
 public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper productMapper;
+    private final ProductValidator validator;
 
-
-    public ProductService(ProductRepository repository, ProductMapper productMapper) {
+    public ProductService(ProductRepository repository, ProductMapper productMapper, ProductValidator validator) {
         this.repository = repository;
         this.productMapper = productMapper;
+        this.validator = validator;
     }
 
     public CreateProductResponseDTO create(CreateProductRequestDTO request) {
@@ -30,5 +33,11 @@ public class ProductService {
 
     public List<GetProductResponseDTO> getAll() {
         return productMapper.toResponseList(repository.findAll());
+    }
+
+    public GetProductResponseDTO getById(UUID id) {
+        validator.validateProductExistence(id);
+    
+        return productMapper.toGetResponse(repository.findById(id).get());
     }
 }
