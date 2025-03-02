@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record CreateProductRequestDTO(
+public record UpdateProductRequestDTO(
     @NotBlank(message = "O nome do produto não pode estar vazio!")
     @Size(max = 150, message = "Nome do produto não pode ser maior que 150 caracteres!")
     String name,

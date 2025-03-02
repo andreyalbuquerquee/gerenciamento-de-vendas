@@ -1,13 +1,14 @@
 package br.com.gerenciamentodevendas.gerenciamentodevendas.dto.clients.request;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record CreateClientRequestDTO(
-    @NotEmpty(message = "Nome não pode estar vazio!")    
-    @Max(value = 150, message = "Nome não pode ser maior que 150 caracteres!")
+    @NotBlank(message = "Nome não pode estar vazio!")    
+    @Size(max = 150, min = 3, message = "Nome não pode ser maior que 150 caracteres!")
     String name,
-    @NotEmpty(message = "Email não pode estar vazio!")
-    @Max(value = 150, message = "Email não pode ser maior que 150 caracteres!")
+    
+    @NotBlank(message = "Email não pode estar vazio!")
+    @Size(max = 150, min = 3, message = "Email não pode ser maior que 150 caracteres!")
     String email
 ) {}
