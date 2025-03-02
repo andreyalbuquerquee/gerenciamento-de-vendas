@@ -15,9 +15,11 @@ import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.clients.response.U
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "sales", ignore = true)
     Client toEntity(CreateClientRequestDTO createClientDTO);
     
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "sales", ignore = true)
     Client toEntity(UpdateClientRequestDTO updateClientDTO);
 
     CreateClientResponseDTO toCreateResponse(Client client);
