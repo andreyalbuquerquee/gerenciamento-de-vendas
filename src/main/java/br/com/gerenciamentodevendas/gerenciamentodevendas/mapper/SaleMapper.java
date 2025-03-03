@@ -1,5 +1,7 @@
 package br.com.gerenciamentodevendas.gerenciamentodevendas.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -8,6 +10,7 @@ import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.sale.SaleItem;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.requests.CreateSaleRequestDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.requests.SaleItemRequestDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.responses.CreateSaleResponseDTO;
+import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.responses.GetSaleResponseDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.responses.SaleItemResponseDTO;
 
 @Mapper(componentModel = "spring")
@@ -32,4 +35,10 @@ public interface SaleMapper {
 
     @Mapping(target = "productId", source = "product.id")
     SaleItemResponseDTO toSaleItemResponse(SaleItem saleItem);
+
+    
+    List<GetSaleResponseDTO> toGetSaleResponseList(List<Sale> sales);
+
+    @Mapping(target = "clientId", source = "client.id")
+    GetSaleResponseDTO toGetSaleResponse(Sale sale);
 }

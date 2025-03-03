@@ -13,6 +13,7 @@ import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.sale.SaleItem;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.requests.CreateSaleRequestDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.requests.SaleItemRequestDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.responses.CreateSaleResponseDTO;
+import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.responses.GetSaleResponseDTO;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.mapper.SaleMapper;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.repository.ClientRepository;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.repository.ProductRepository;
@@ -78,5 +79,9 @@ public class SalesService {
         Sale savedSale = repository.save(newSale);
 
         return saleMapper.toCreateSaleResponse(repository.save(savedSale));
+    }
+
+    public List<GetSaleResponseDTO> getAll() {
+        return saleMapper.toGetSaleResponseList(repository.findAll());
     }
 }
