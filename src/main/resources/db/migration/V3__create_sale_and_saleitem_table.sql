@@ -6,7 +6,7 @@ CREATE TABLE sales (
     CONSTRAINT fk_sales_client FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
 );
 
-CREATE TABLE sale_items (
+CREATE TABLE sales_items (
     id UUID PRIMARY KEY,
     sale_id UUID NOT NULL,
     product_id UUID NOT NULL,

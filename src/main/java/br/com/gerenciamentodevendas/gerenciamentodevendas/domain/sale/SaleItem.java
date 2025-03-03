@@ -44,7 +44,13 @@ public class SaleItem {
 
     @PrePersist
     @PreUpdate
-    public void calculateTotal() {
-        this.subTotal = unitPrice.multiply(BigDecimal.valueOf(quantity));
+    private void addSubTotal() {
+        this.unitPrice = this.product.getPrice();
+        this.subTotal = calculateTotal();
+    }
+
+    public BigDecimal calculateTotal() {
+        this.unitPrice = this.product.getPrice();
+        return unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 }

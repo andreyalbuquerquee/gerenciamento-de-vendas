@@ -1,0 +1,28 @@
+package br.com.gerenciamentodevendas.gerenciamentodevendas.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.requests.CreateSaleRequestDTO;
+import br.com.gerenciamentodevendas.gerenciamentodevendas.dto.sales.responses.CreateSaleResponseDTO;
+import br.com.gerenciamentodevendas.gerenciamentodevendas.service.SalesService;
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/sales")
+public class SalesController {
+    private final SalesService service;
+
+    public SalesController(SalesService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity<CreateSaleResponseDTO> create(@RequestBody @Valid CreateSaleRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
+    }
+}
