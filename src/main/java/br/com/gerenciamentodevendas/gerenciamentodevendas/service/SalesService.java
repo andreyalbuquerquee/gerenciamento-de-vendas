@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.client.Client;
+import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.exception.NotFoundException;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.product.Product;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.sale.Sale;
 import br.com.gerenciamentodevendas.gerenciamentodevendas.domain.sale.SaleItem;
@@ -83,5 +84,13 @@ public class SalesService {
 
     public List<GetSaleResponseDTO> getAll() {
         return saleMapper.toGetSaleResponseList(repository.findAll());
+    }
+
+    public void deleteById(UUID id) {
+        if (!repository.findById(id).isPresent()) {
+            throw new NotFoundException("Venda não encontrada!");
+        }
+        
+        repository.deleteById(id);
     }
 }
