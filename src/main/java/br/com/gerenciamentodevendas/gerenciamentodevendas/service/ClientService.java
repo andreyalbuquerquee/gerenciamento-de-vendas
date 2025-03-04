@@ -54,6 +54,8 @@ public class ClientService {
         Client updatedClient = clientMapper.toEntity(request);
         updatedClient.setId(id);
         
+        repository.save(updatedClient);
+
         return clientMapper.toUpdateResponse(updatedClient);
     }
 
