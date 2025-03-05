@@ -48,7 +48,9 @@ public class ProductService {
     
         Product updatedProduct = productMapper.toEntity(request);
         updatedProduct.setId(id);
-    
+        
+        repository.save(updatedProduct);
+
         return productMapper.toUpdateResponse(updatedProduct);
     }
 
